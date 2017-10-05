@@ -1,0 +1,321 @@
+# -*- coding:utf-8 -*-
+#:set FONT "RoundMPlus"
+#:set BLUE_COLOR 0.2000 ,0.2000 ,0.9843,0.9
+#:set WHITE_COLOR 0.941, 0.941, 0.941,0.85
+#:set BLACK_COLOR 0,0,0
+#:set CLOCK_COLOR 0.2,0.2,1,1
+
+<MyClock>:
+	BoxLayout:
+		size: root.size
+		pos: root.pos
+		orientation: "horizontal"
+		spacing: 20
+		
+		Label:
+			text: root.day_str
+			font_size: self.height / 1.6
+			color: CLOCK_COLOR
+			size_hint_x: 0.8
+			halign: "center"
+			valign: "bottom"
+			text_size: self.size
+		Label:
+			text: root.time_str
+			font_size: self.height
+			color: CLOCK_COLOR
+			halign: "left"
+			valign: "bottom"
+			text_size: self.size
+
+<ScheduleNodeDay>:
+	BoxLayout:
+		pos: self.parent.pos
+		orientation: "vertical"
+		size: root.size
+		
+		Label:
+			padding: (5, 0)
+			font_size: self.height*0.75
+			text_size: self.size
+			text: root.time_str
+			valign: "middle"
+			font_name: FONT
+			color:BLUE_COLOR
+		Label:
+			padding: (5, 0)
+			font_size: self.height*0.95
+			text_size: self.size
+			text: root.summary_str
+			valign: "middle"
+			font_name: FONT
+			color:BLUE_COLOR
+		
+<ScheduleNodeAfter>:
+	BoxLayout:
+		pos: self.parent.pos
+		orientation: "horizontal"
+		size: root.size
+		canvas.before:
+			Color:
+				rgba: 0.2000 ,0.2000 ,0.9843,0.7
+			Rectangle:
+				pos:self.pos
+				size:self.size
+				source: 'data/background.png'
+		Label:
+			size_hint_x: 0.5
+			padding: (5, 0)
+			font_size: self.height*0.65
+			text_size: self.size
+			text: root.time_str
+			valign: "middle"
+			font_name: FONT
+		Label:
+			padding: (0, 0)
+			font_size: self.height*0.75
+			text_size: self.size
+			text: root.summary_str
+			valign: "middle"
+			halign: "left"
+			font_name: FONT
+			
+<ScheduleScreen>:
+	BoxLayout:
+		orientation: "horizontal"
+		spacing: 10
+		StackLayout:
+			size_hint_x: 0.7
+			id:today
+			orientation: "tb-lr"
+			size: root.size
+			padding: 10
+			spacing: 10
+			canvas.before:
+				Color:
+					rgb: WHITE_COLOR
+				Rectangle:
+					pos: self.pos
+					size: self.size
+		StackLayout:
+			id:after
+			orientation: "tb-lr"
+			size: root.size
+			padding: 10
+			spacing: 10
+			canvas.before:
+				Color:
+					rgb: WHITE_COLOR
+				Rectangle:
+					pos: self.pos
+					size: self.size
+
+<WeatherNode@BoxLayout>:
+	img: "img/no_image.png"
+	telop: "telop"
+	orientation: "vertical"
+	padding: 10
+	spacing: 10
+	canvas.before:
+		Color:
+			rgb: WHITE_COLOR
+		Rectangle:
+			pos: self.pos
+			size: self.size
+	Image:
+		source: root.img
+		center: self.parent.center
+	Label:
+		text: root.telop
+		center: self.parent.center
+		font_size: self.width / 5
+		font_name: FONT
+		color: 0,0,0,1
+	
+<WeatherScreen>:
+	BoxLayout:
+		orientation: "horizontal"
+		padding:10
+		spacing:10
+		WeatherNode:
+			telop: root.get_weather(0)
+			img:root.get_weather_image(0)
+		WeatherNode:
+			telop: root.get_weather(1)
+			img: root.get_weather_image(1)
+		WeatherNode:
+			telop: root.get_weather(2)
+			img: root.get_weather_image(2)
+
+<MailLabel@Label>:
+	markup: True
+	text: "default"
+	font_name: FONT
+	color: 0,0,0,1
+	pos: root.pos
+	size: root.size
+	text_size: self.size
+	halign: "left"
+	valign: "top"
+	padding: (5, 0)
+	canvas.before:
+		Color:
+			rgb: WHITE_COLOR
+		Rectangle:
+			pos: self.pos
+			size: self.size
+
+<MailNode>:
+	BoxLayout:
+		orientation: "vertical"
+		size: root.size
+		pos: root.pos
+		BoxLayout:
+			pos: self.parent.pos
+			orientation: "horizontal"
+			size: root.size
+			canvas.before:
+				Color:
+					rgb: WHITE_COLOR
+				Rectangle:
+					pos:self.pos
+					size:self.size
+			Label:
+				size_hint_x: 0.14
+				padding: (5, 0)
+				font_size: self.height*0.65
+				text_size: self.size
+				text: "差出人:"
+				valign: "bottom"
+				font_name: FONT
+				color:0,0,0,1
+			Label:
+				padding: (5, 0)
+				font_size: self.height*0.95
+				text_size: self.size
+				text: root.from_str
+				valign: "middle"
+				halign: "left"
+				font_name: FONT
+				color:0,0,0,1
+		BoxLayout:
+			pos: self.parent.pos
+			orientation: "horizontal"
+			size: root.size
+			canvas.before:
+				Color:
+					rgb: WHITE_COLOR
+				Rectangle:
+					pos:self.pos
+					size:self.size
+			Label:
+				size_hint_x: 0.14
+				padding: (5, 0)
+				font_size: self.height*0.65
+				text_size: self.size
+				text: "件名:"
+				valign: "bottom"
+				font_name: FONT
+				color:0,0,0,1
+			Label:
+				padding: (5, 0)
+				font_size: self.height*0.8
+				text_size: self.size
+				text: root.subject_str
+				valign: "middle"
+				halign: "left"
+				font_name: FONT
+				color:0,0,0,1
+				shorten:True
+		BoxLayout:
+			pos: self.parent.pos
+			orientation: "horizontal"
+			size: root.size
+			canvas.before:
+				Color:
+					rgb: WHITE_COLOR
+				Rectangle:
+					pos:self.pos
+					size:self.size
+			Label:
+				size_hint_x: 0.14
+				padding: (5, 0)
+				font_size: self.height*0.65
+				text_size: self.size
+				text: "本文:"
+				valign: "bottom"
+				font_name: FONT
+				color:0,0,0,1
+			Label:
+				padding: (5, 0)
+				font_size: self.height*0.65
+				text_size: self.size
+				text: root.text_str
+				valign: "middle"
+				halign: "left"
+				font_name: FONT
+				color:0,0,0,1
+				shorten:True
+		BoxLayout:
+			pos: self.parent.pos
+			orientation: "horizontal"
+			size: root.size
+			canvas.before:
+				Color:
+					rgb: WHITE_COLOR
+				Rectangle:
+					pos:self.pos
+					size:self.size
+			Label:
+				size_hint_x: 0.14
+				padding: (5, 0)
+				font_size: self.height*0.65
+				text_size: self.size
+				text: "日付:"
+				valign: "bottom"
+				font_name: FONT
+				color:0,0,0,1
+			Label:
+				padding: (5, 0)
+				font_size: self.height*0.8
+				text_size: self.size
+				text: root.date_str
+				valign: "middle"
+				halign: "left"
+				font_name: FONT
+				color:0,0,0,1
+		
+
+<MailScreen>:
+	BoxLayout:
+		id: layout
+		orientation: "vertical"
+		padding: 5
+		spacing: 10
+			
+<VoiceRecognitionScreen>:
+	BoxLayout:
+		size: root.size
+		pos: root.pos
+		orientation: "vertical"
+		spacing: 10
+		Label:
+			text:"Recording"
+			font_name:FONT
+			font_size: self.height / 5
+			text_size: self.size
+			valign: "bottom"
+			halign: "center"
+		ProgressBar:
+			size_hint_y: 0.1
+			value: root.pb_value
+			max: root.get_max()
+			
+<MessageScreen>:
+	Label:
+		text: root.text_str
+		font_name: FONT
+		font_size:self.height*0.11
+		text_size: self.size
+		valign: "middle"
+		halign: "center"
