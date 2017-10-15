@@ -111,7 +111,8 @@ maing_viewフォルダ内にimgフォルダを作成し、これらの画像を�
 赤外線通信については，主に[Raspberry pi 3 で部屋の赤外線受信できる機器をコントロール！](http://qiita.com/_kazuya/items/62a9a13a4ac140374ce8)を参考に作成しています．
 ### 赤外線送受信モジュールの作成
 赤外線通信を行うためには，別途赤外線通信用モジュールを作成する必要があります．
-[Webサイトの回路図](http://wagayakane.html.xdomain.jp/explanation.html)や以下を参考に，各自作成をお願いします．
+[Webサイトの回路図](http://wagayakane.html.xdomain.jp/explanation.html)や以下を参考に，各自作成をお願いします．  
+
 ![circuit_module](https://github.com/hmhm903/WagayaNoAkaneChan/blob/master/img/circuit.jpg)
 
 #### 使用部品
@@ -129,7 +130,8 @@ maing_viewフォルダ内にimgフォルダを作成し、これらの画像を�
 ラズパイに赤外線LEDを繋いでます。送信強度を増すために3つのLEDを駆動しています。
 
 #### 赤外線送受信モジュール
-送信部分と受信部分を1枚の基板にはんだ付けしてモジュール化しています．
+送信部分と受信部分を1枚の基板にはんだ付けしてモジュール化しています．  
+
 ![circuit_module](https://github.com/hmhm903/WagayaNoAkaneChan/blob/master/img/circuit_board.jpg)
 
 ### 赤外線送受信モジュールとRaspberry Piの接続
